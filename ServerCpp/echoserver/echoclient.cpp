@@ -2,7 +2,7 @@
  *
  *	File Name: echoclient.cpp
  *	Author: YangFan
- *	Email: NonShip@protonmail.com
+ *	Email: onlyyangfan@protonmail.com
  *	Create Time: Sat 16 Apr 2022 05:10:12 PM CST
  *
  */
@@ -35,10 +35,16 @@ int main(int argc, char **argv) {
 
 	cout << "connect to server: " << inet_ntoa(serv_addr.sin_addr) << '\n';
 
-	char buf[1024] = {"hello world"};
-	write(clnt_sock, buf, strlen(buf));
-	read(clnt_sock, buf, sizeof(buf));
-	cout << buf << "\n";
+	char buf[1024];
+	while (cin>>buf) {
+		if (strcmp(buf, "q") == 0){
+			cout << "disconnected to server\n";
+			close(clnt_sock);
+		}
+		write(clnt_sock, buf, strlen(buf));
+		read(clnt_sock, buf, sizeof(buf));
+		cout << buf << "\n";
+	}
 	close(clnt_sock);
 
 }
