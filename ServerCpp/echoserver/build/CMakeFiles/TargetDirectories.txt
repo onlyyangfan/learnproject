@@ -1,3 +1,0 @@
-/home/yangfan/cpp/project/learning/ServerCpp/echoserver/build/CMakeFiles/rebuild_cache.dir
-/home/yangfan/cpp/project/learning/ServerCpp/echoserver/build/CMakeFiles/edit_cache.dir
-/home/yangfan/cpp/project/learning/ServerCpp/echoserver/build/CMakeFiles/echoServer.dir
