@@ -40,8 +40,10 @@ int main(int argc, char **argv) {
 		if (strcmp(buf, "q") == 0){
 			cout << "disconnected to server\n";
 			close(clnt_sock);
+			break;
 		}
 		write(clnt_sock, buf, strlen(buf));
+		bzero(buf, 1024);
 		read(clnt_sock, buf, sizeof(buf));
 		cout << buf << "\n";
 	}
