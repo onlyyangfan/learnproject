@@ -22,6 +22,8 @@ public:
 	void connect(); 
 	void acceptRequest();
 	void getlineRequest();
+	void processRequest();
+	void sendData();
 private:
 	int m_serverSkt = 0;
 	int m_clientSkt = 0;

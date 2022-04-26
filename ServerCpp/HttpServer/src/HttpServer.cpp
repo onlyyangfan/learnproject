@@ -45,27 +45,47 @@ void HttpServer::connect() {
 		}
 		cout << "new connect... IP: " << inet_ntoa(this->m_clientAddress.sin_addr) << " port: " << ntohs(this->m_clientAddress.sin_port) << '\n';
 		this->acceptRequest();
-		close(this->m_clientSkt);
 		cout << "close connect... IP: " << inet_ntoa(this->m_clientAddress.sin_addr) << " port: " << ntohs(this->m_clientAddress.sin_port) << '\n';
+		close(this->m_clientSkt);
 	}
 }
 
 void HttpServer::acceptRequest() {
+	getlineRequest();
+	processRequest();
+	this->buff.clear();
 }
 
 void HttpServer::getlineRequest() {
 	char chr = '\0';
 	int readSize = 0;
-	while (chr != '\n') {
-		if (read(this->m_clientSkt, &chr, 1) > 0 ) {
-			if (chr != '\r') {
-				if (read(this->m_clientSkt, &chr, 1) && chr == '\n') {
-					
+	while (read(this->m_clientSkt, &chr, 1)) {
+		if (chr == '\r') {
+			if (read(this->m_clientSkt, &chr, 1)) {
+				if (chr == '\n') {
+					break;
 				}
-					
 			}
+		} else if (chr == '\n') {
+			break;
 		} else {
-			chr = '\n';
+			this->buff.push_back(chr);
 		}
 	}
+}
+
+void HttpServer::processRequest() {
+	size_t t = this->buff.find(" ");
+	string method = this->buff.substr(0, t);
+	if (method.compare("GET") == 0) {
+		size_t t2;
+		t2 = this->buff.find(" ", t);
+		string path = this->buff.substr(t+1, t2-1);
+		if (path.compare("/") == 0) {
+			path = "./index.html";
+		}
+	}
+}
+
+void HttpServer::sendData() {
 }
