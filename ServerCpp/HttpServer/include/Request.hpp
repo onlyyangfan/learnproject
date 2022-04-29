@@ -11,7 +11,7 @@
 
 #ifndef REQUESTHEAD
 #define REQUESTHEAD
-#include <string>
+#include "utilies.hpp"
 
 using namespace std;
 
@@ -51,7 +51,7 @@ authority只用于connect方法
 class RequestLine{
 public:
 	Method m_method; // 方法
-	string m_URL; // 请求地址
+	filesystem::path m_URL; // 请求地址
 	string m_protocol; // 协议版本
 };
 
@@ -74,6 +74,8 @@ public:
 	RequestLine m_requestLine;
 	RequestHeader m_requestHeader;
 	RequestBody m_requestBody;
+	bool m_isRequestLine = true;
+	bool m_isRequestHeader = false;
 };
 
 #endif

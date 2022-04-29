@@ -50,9 +50,9 @@ enum StatusDesciption {
 
 class ResponseLine{
 public:
-	string m_protocol;
-	int m_statusCode;
-	StatusDesciption m_statusDes;
+	string m_protocol{"Http/1.0"};
+	StatusDesciption m_statusCode;
+	string m_statusDes;
 };
 
 class ResponseHeader {
@@ -64,4 +64,11 @@ public:
 
 class ResponseData {
 	string m_meessageBody;
+};
+
+class Response {
+public:
+	ResponseLine m_responseLine;
+	ResponseHeader m_responseHeader;
+	ResponseData m_responseData;
 };

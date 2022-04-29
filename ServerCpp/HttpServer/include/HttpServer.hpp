@@ -14,6 +14,7 @@
 
 #include "utilies.hpp"
 #include "Request.hpp"
+#include "Response.hpp"
 #include <cstdio>
 
 class HttpServer {
@@ -22,8 +23,20 @@ public:
 	void connect(); 
 	void acceptRequest();
 	void getlineRequest();
+	void readRequest();
 	void processRequest();
-	void sendData();
+	//void sendData(string &t_data);
+	string mergeResponseLine();
+
+	int getClientSkt() {
+		return this->m_clientSkt;
+	}
+	
+   string getURL() {
+   		return this->m_request.m_requestLine.m_URL.c_str();
+   }		
+
+   friend void sendData(string &, HttpServer *http);
 private:
 	int m_serverSkt = 0;
 	int m_clientSkt = 0;
@@ -31,6 +44,9 @@ private:
 	struct sockaddr_in m_serverAddress;
 	struct sockaddr_in m_clientAddress;
 	string buff{};
+	Request m_request; //接受的请求
+	Response m_response; // 回复
+						 //
 };
 
 
