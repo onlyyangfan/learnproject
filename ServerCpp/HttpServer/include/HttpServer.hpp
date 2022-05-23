@@ -26,24 +26,24 @@ public:
 	void readRequest();
 	void processRequest();
 	//void sendData(string &t_data);
-	string mergeResponseLine();
+	std::string mergeResponseLine();
 
 	int getClientSkt() {
 		return this->m_clientSkt;
 	}
 	
-   string getURL() {
+	std::string getURL() {
    		return this->m_request.m_requestLine.m_URL.c_str();
    }		
 
-   friend void sendData(string &, HttpServer *http);
+   friend void sendData(std::string &, HttpServer *http);
 private:
 	int m_serverSkt = 0;
 	int m_clientSkt = 0;
 	int m_port = 8888;
 	struct sockaddr_in m_serverAddress;
 	struct sockaddr_in m_clientAddress;
-	string buff{};
+	std::string buff{};
 	Request m_request; //接受的请求
 	Response m_response; // 回复
 						 //

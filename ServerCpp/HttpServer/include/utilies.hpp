@@ -23,11 +23,11 @@
 #include <filesystem>
 #include <fstream>
 #include <thread>
+#include <mutex>
 
-using namespace std;
 
 // 结束字段
-static const string endOfLine{"\r\n"};
+static const std::string endOfLine{"\r\n"};
 
 static const int socketLength = 10;
 

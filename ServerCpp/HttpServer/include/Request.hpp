@@ -13,7 +13,6 @@
 #define REQUESTHEAD
 #include "utilies.hpp"
 
-using namespace std;
 
 enum Method {
 	GET = 0,
@@ -51,21 +50,21 @@ authority只用于connect方法
 class RequestLine{
 public:
 	Method m_method; // 方法
-	filesystem::path m_URL; // 请求地址
-	string m_protocol; // 协议版本
+	std::filesystem::path m_URL; // 请求地址
+	std::string m_protocol; // 协议版本
 };
 
 // 请求头部所覆盖的方面太多，这里只是实现accept accept-Encode accept-Language Authorization Host User-Agent
 class RequestHeader {
-	string m_acceptEncode;
-	string m_acceptLanguage;
-	string m_host;
-	string m_userAgent;
-	string m_Authorization;
+	std::string m_acceptEncode;
+	std::string m_acceptLanguage;
+	std::string m_host;
+	std::string m_userAgent;
+	std::string m_Authorization;
 };
 
 class RequestBody {
-	string m_messageBody;
+	std::string m_messageBody;
 };
 
 

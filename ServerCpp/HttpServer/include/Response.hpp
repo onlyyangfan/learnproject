@@ -50,20 +50,20 @@ enum StatusDesciption {
 
 class ResponseLine{
 public:
-	string m_protocol{"Http/1.0"};
+	std::string m_protocol{"Http/1.0"};
 	StatusDesciption m_statusCode;
-	string m_statusDes;
+	std::string m_statusDes;
 };
 
 class ResponseHeader {
 public:
-	string m_server;
-	string m_location;
+	std::string m_server;
+	std::string m_location;
 	struct tm m_age;
 };
 
 class ResponseData {
-	string m_meessageBody;
+	std::string m_meessageBody;
 };
 
 class Response {

@@ -10,7 +10,6 @@
 #pragma once
 #include <string>
 
-using namespace std;
 
 //http_URL = "http:" "//" host [ ":" port ] [ abs_path [ "?" query ]]
 //If the port is empty or not given, port 80 is assumed. The semantics
@@ -35,10 +34,10 @@ public:
 		m_ip = 80;
 		m_absPath = "\\";
 	}
-	Url(HttpProtocl ptl, string ip, string abspath) : m_protocl(ptl), m_ip(ip), m_absPath(abspath){}
+	Url(HttpProtocl ptl, std::string ip, std::string abspath) : m_protocl(ptl), m_ip(ip), m_absPath(abspath){}
 private:
 	HttpProtocl m_protocl;	
-	string m_ip;
-	string m_absPath;
+	std::string m_ip;
+	std::string m_absPath;
 	
 };

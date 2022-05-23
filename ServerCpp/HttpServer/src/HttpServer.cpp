@@ -12,6 +12,7 @@
 #include "../include/HttpServer.hpp"
 #include <cstring>
 
+using std::cout;
 
 void HttpServer::serverInit() {
 	this->m_serverSkt = socket(AF_INET, SOCK_STREAM, 0);
@@ -77,14 +78,14 @@ void HttpServer::getlineRequest() {
 
 void HttpServer::readRequest() {
 	if (this->m_request.m_isRequestLine == true) {
-		string::size_type methodEnd = this->buff.find(" ");
-		string method = this->buff.substr(0, methodEnd);
+		std::string::size_type methodEnd = this->buff.find(" ");
+		std::string method = this->buff.substr(0, methodEnd);
 		if (method.compare("GET") == 0) {
 			this->m_request.m_requestLine.m_method = Method::GET; // 获得method GET
-			string::size_type urlEnd;
+			std::string::size_type urlEnd;
 			urlEnd = this->buff.find(" ", methodEnd);
 			//去除两段的空格
-			string url = this->buff.substr(methodEnd+1, urlEnd-1);
+			std::string url = this->buff.substr(methodEnd+1, urlEnd-1);
 			url = url.substr(url.find_first_not_of(" "),url.find_last_of(" "));
 
 			// 提取请求url
@@ -95,15 +96,15 @@ void HttpServer::readRequest() {
 			}
 
 			//TODO 提取http协议
-			//string::size_type httpProEnd = this->buff.find(" ", urlEnd);
-			//string http = this->buff.substr(urlEnd+1, httpProEnd-1);
+			//std::string::size_type httpProEnd = this->buff.find(" ", urlEnd);
+			//std::string http = this->buff.substr(urlEnd+1, httpProEnd-1);
 			//cout << http << endl;
 
 		}
 		this->m_request.m_isRequestLine = false;
 
 		// 如果请求文件没有找到返回404
-		if (filesystem::is_regular_file(this->m_request.m_requestLine.m_URL)) {
+		if (std::filesystem::is_regular_file(this->m_request.m_requestLine.m_URL)) {
 			this->m_response.m_responseLine.m_statusDes = "OK";
 			this->m_response.m_responseLine.m_statusCode = StatusDesciption::OK;
 		} else {
@@ -113,8 +114,8 @@ void HttpServer::readRequest() {
 	}
 }
 
-string HttpServer::mergeResponseLine() {
-	string data{};
+std::string HttpServer::mergeResponseLine() {
+	std::string data{};
 	data += this->m_response.m_responseLine.m_protocol;
 	data += " ";
 	data += this->m_response.m_responseLine.m_statusCode;
@@ -126,7 +127,7 @@ string HttpServer::mergeResponseLine() {
 
 
 
-void sendData(string &t_data, int t_clientSkt, string t_URL) {
+void sendData(std::string &t_data, int t_clientSkt, std::string t_URL) {
 	//t_data += "Content-Type: text/html; charset=UTF-8\r\n";
 	t_data += "\r\n";
 	write(t_clientSkt, t_data.c_str(), t_data.size());
@@ -150,9 +151,9 @@ void sendData(string &t_data, int t_clientSkt, string t_URL) {
 
 void HttpServer::processRequest() {
 	if (this->m_response.m_responseLine.m_statusCode == StatusDesciption::OK) {
-		string data = this->mergeResponseLine();
+		std::string data = this->mergeResponseLine();
 		data += "\r\n";
-		thread thd(sendData, ref(data), this->m_clientSkt, this->m_request.m_requestLine.m_URL);
+		std::thread thd(sendData, ref(data), this->m_clientSkt, this->m_request.m_requestLine.m_URL);
 
 		thd.join();
 		close(this->m_clientSkt);

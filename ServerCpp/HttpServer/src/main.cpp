@@ -10,7 +10,6 @@
 /* @#define NETWORK to get network lib   @#define C_LIB to get c lib */
 #include "../include/HttpServer.hpp"
 
-using namespace std;
 
 int main(int argc, char **argv) {
 	HttpServer httpserv;
